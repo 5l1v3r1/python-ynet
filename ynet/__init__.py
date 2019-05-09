@@ -7,7 +7,7 @@ import json
 class Comment:
     
     def __init__(self, article_url='' ,name='', email='', location='', title='', text='', likes=0, commentNum=0, commentDate=None, commentId=0, parentId=0):
-        self.article_url = article_url
+        self.article = Article(article_url)
         self.name = name
         self.email = email
         self.location = location
@@ -20,13 +20,26 @@ class Comment:
         self.parentId = parentId
 
     def GetReplies(self):
-        all_comments = Article(self.article_url).GetComments()
+        all_comments = self.article.GetComments()
         replies = []
         for comment in all_comments:
             if comment.parentId == self.commentId:
                 replies.append(comment)
         return replies
-        
+
+    def Reply(self, comment):
+        r = requests.get('https://www.ynet.co.il/YediothPortal/Ext/TalkBack/CdaTalkBackTrans/0,2499,'+ \
+                         self.article.article_id +\
+                         '-0-68-13108-0---' + \
+                         str(self.commentId) +\
+                         ',00.html', params={'WSGBRWSR':'FF',\
+                                             'name':comment.name, \
+                                             'email':comment.email, \
+                                             'Location':comment.location, \
+                                             'title':comment.title, \
+                                             'description':comment.text})
+        return r.text
+    
     def Post(self, useragent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.113 Safari/537.36"):
         r = requests.post(self.article_url, params={'WSGBRWSR':'FF', 'name':self.name,\
         'email':self.email, 'Location':self.location, 'title':self.title, 'description':self.text}, headers={'User-Agent':useragent})
