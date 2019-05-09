@@ -41,7 +41,7 @@ class Comment:
         return r.text
     
     def Post(self, useragent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.113 Safari/537.36"):
-        r = requests.post(self.article_url, params={'WSGBRWSR':'FF', 'name':self.name,\
+        r = requests.post(self.article.article_url, params={'WSGBRWSR':'FF', 'name':self.name,\
         'email':self.email, 'Location':self.location, 'title':self.title, 'description':self.text}, headers={'User-Agent':useragent})
         return r.text
 
