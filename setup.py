@@ -1,10 +1,10 @@
 from distutils.core import setup
 
 setup(name='ynet',
-      version='1.2',
+      version='1.3',
       description='ynet.co.il interaction library',
       author='sl4v',
       author_email='iamsl4v@protonmail.com',
-      url='https://sl4vkek.github.io/',
+      url='https://sl4vkek.github.io/python-ynet',
       packages=['ynet'],
      )

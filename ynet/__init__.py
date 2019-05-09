@@ -62,6 +62,7 @@ class Article:
             comments.append(Comment(article_url=self.article_url,\
                                     name=comment_dict['name'], \
                                     title=comment_dict['title'], \
+                                    text=comment_dict['text'], \
                                     location=comment_dict['location'], \
                                     commentDate=comment_date, \
                                     commentNum=comment_dict['tc'], \
@@ -70,4 +71,10 @@ class Article:
                                     parentId=comment_dict['parent_id'] \
                                     
                 ))
-        return comments
+        return comments     
+
+    def GetCommentByCommentNum(self, commentNum):
+        all_comments = self.GetComments()
+        for comment in all_comments:
+            if comment.commentNum == commentNum:
+                return comment
