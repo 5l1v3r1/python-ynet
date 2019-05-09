@@ -11,7 +11,7 @@ print('Sending reply...')
 reply = Comment(article_url=article.article_url,\
                 name='python-ynet bot reply test',\
                 email='fuckoff@gmail.com', \
-                location='your mom\' butthole', \
+                location='your mom\'s butthole', \
                 title='Test reply using python-ynet', \
                 text='github.com/sl4vkek/python-ynet')
 comment.Reply(reply)
