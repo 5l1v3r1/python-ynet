@@ -5,6 +5,6 @@ setup(name='ynet',
       description='ynet.co.il interaction library',
       author='sl4v',
       author_email='iamsl4v@protonmail.com',
-      url='https://sl4vkek.github.io/python-ynet',
+      url='https://sl4vkek.github.io/',
       packages=['ynet'],
      )
