@@ -6,7 +6,7 @@ import json
 
 class Comment:
     
-    def __init__(self, article_url='' ,name='', email='', location='', title='', text='', likes=0, commentNum=0, commentDate=None, commentId=0):
+    def __init__(self, article_url='' ,name='', email='', location='', title='', text='', likes=0, commentNum=0, commentDate=None, commentId=0, parentId=0):
         self.article_url = article_url
         self.name = name
         self.email = email
@@ -16,6 +16,16 @@ class Comment:
         self.likes = likes
         self.commentNum = commentNum
         self.commentDate = commentDate
+        self.commentId = commentId
+        self.parentId = parentId
+
+    def GetReplies(self):
+        all_comments = Article(self.article_url).GetComments()
+        replies = []
+        for comment in all_comments:
+            if comment.parentId == self.commentId:
+                replies.append(comment)
+        return replies
         
     def Post(self, useragent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.113 Safari/537.36"):
         r = requests.post(self.article_url, params={'WSGBRWSR':'FF', 'name':self.name,\
@@ -43,7 +53,8 @@ class Article:
                                     commentDate=comment_date, \
                                     commentNum=comment_dict['tc'], \
                                     likes=comment_dict['ts'], \
-                                    commentId=comment_dict['id'] \
+                                    commentId=comment_dict['id'], \
+                                    parentId=comment_dict['parent_id'] \
                                     
                 ))
         return comments
