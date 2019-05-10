@@ -9,4 +9,3 @@ for comment in article.GetComments():
     print("Comment text:" + comment.text)
     print("Commentor name:" + comment.name)
     print("Comment likes:" + str(comment.likes))
-    print("-----------")

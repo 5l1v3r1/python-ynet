@@ -7,6 +7,8 @@ import json
 
 class Comment:
 
+    hasParentComment = False
+
     def __init__(self, article_url='', name='', email='', location='', title='', text='', likes=0, commentNum=0, commentDate=None, commentId=0, parentId=0):
         self.article = Article(article_url)
         self.name = name
@@ -19,6 +21,8 @@ class Comment:
         self.commentDate = commentDate
         self.commentId = commentId
         self.parentId = parentId
+        if parentId != 0:
+            self.hasParentComment = True
 
     def GetReplies(self):
         all_comments = self.article.GetComments()
@@ -68,7 +72,10 @@ class Article:
     def GetComments(self):
 
         comments = []
-        r = requests.get("https://www.ynet.co.il/Ext/Comp/ArticleLayout/Proc/ShowTalkBacksAjax/v2/0,12990,"+ self.article_id + "-desc-68-0-1,00.html", params={'User-Agent':\
+        r = requests.get("https://www.ynet.co.il/Ext/Comp/ArticleLayout/Proc/ShowTalkBacksAjax/v2/0,12990,"+
+                         self.article_id +
+                         "-desc-68-0-1,00.html",
+                         params={'User-Agent':
                          "Mozilla/5.0 (Windows NT 10.0; Win64; x64) \
 AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.113 Safari/537.36"}).text
         comments_json = json.loads(r)['rows']
@@ -96,3 +103,17 @@ AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.113 Safari/537.36"}).tex
         for comment in all_comments:
             if comment.commentNum == commentNum:
                 return comment
+
+    def GetCommentsByWriter(self, writerName):
+        all_comments = self.GetComments()
+        commentsByWriter = []
+        for comment in all_comments:
+            if comment.name == writerName:
+                commentsByWriter.append(comment)
+        return commentsByWriter
+
+    def HasCommentsByWriter(self, writerName):
+        if len(self.GetCommentsByWriter(writerName)) != 0:
+            return True
+        else:
+            return False
