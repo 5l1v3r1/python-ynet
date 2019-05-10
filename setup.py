@@ -1,7 +1,7 @@
 from distutils.core import setup
 
 setup(name='ynet',
-      version='1.3',
+      version='1.4',
       description='ynet.co.il interaction library',
       author='sl4v',
       author_email='iamsl4v@protonmail.com',
