@@ -1,2 +1,3 @@
 # python-ynet
-A Python library that allows you to post and view comments on news articles from ynet.co.il
+A Python library that allows you to post and view comments on news articles from ynet.co.il. <br />
+Standalone .py releases are at https://github.com/sl4vkek/python-ynet/releases.
