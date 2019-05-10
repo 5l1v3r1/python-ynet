@@ -6,7 +6,7 @@ import json
 
 
 class Comment:
-    
+
     def __init__(self, article_url='', name='', email='', location='', title='', text='', likes=0, commentNum=0, commentDate=None, commentId=0, parentId=0):
         self.article = Article(article_url)
         self.name = name
@@ -27,6 +27,12 @@ class Comment:
             if comment.parentId == self.commentId:
                 replies.append(comment)
         return replies
+
+    def GetParentComment(self):
+        all_comments = self.article.GetComments()
+        for comment in all_comments:
+            if self.parentId == comment.commentId:
+                return comment
 
     def Reply(self, comment):
         r = requests.get('https://www.ynet.co.il/YediothPortal/Ext/TalkBack/CdaTalkBackTrans/0,2499,' +
@@ -56,6 +62,7 @@ class Article:
         self.article_id = basename(urlparse(article_url).path).split(',')[2]
 
     def GetComments(self):
+
         comments = []
         r = requests.get("https://www.ynet.co.il/Ext/Comp/ArticleLayout/Proc/ShowTalkBacksAjax/v2/0,12990,"+ self.article_id + "-desc-68-0-1,00.html", params={'User-Agent':\
                          "Mozilla/5.0 (Windows NT 10.0; Win64; x64) \
@@ -63,7 +70,9 @@ AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.113 Safari/537.36"}).tex
         comments_json = json.loads(r)['rows']
         for comment_dict in comments_json:
             _comment_date = comment_dict['the_date'].split('.')
-            comment_date = date(year=int(_comment_date[2]), month=int(_comment_date[1]), day=int(_comment_date[0]))
+            comment_date = date(year=int(_comment_date[2]),
+                                month=int(_comment_date[1]),
+                                day=int(_comment_date[0]))
             comments.append(Comment(article_url=self.article_url,
                                     name=comment_dict['name'],
                                     title=comment_dict['title'],
