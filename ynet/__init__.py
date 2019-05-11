@@ -43,7 +43,7 @@ class Comment:
                          self.article.article_id +
                          '-0-68-13108-0---' +
                          str(self.commentId) +
-                         ',00.html', params={'WSGBRWSR':'FF',
+                         ',00.html', data={'WSGBRWSR':'FF',
                                              'name': comment.name,
                                              'email': comment.email,
                                              'Location': comment.location,
