@@ -54,7 +54,9 @@ class Comment:
     def Post(self, useragent=
             "Mozilla/5.0 (Windows NT 10.0; Win64; x64) \
 AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.113 Safari/537.36"):
-        r = requests.post('https://www.ynet.co.il/YediothPortal/Ext/TalkBack/CdaTalkBackTrans/0,2499,' + self.article.article_id + '-0-68-546-0---0,00.html', data={'WSGBRWSR': 'FF',
+        r = requests.post('https://www.ynet.co.il/YediothPortal/Ext/TalkBack/CdaTalkBackTrans/0,2499,'
+                          + self.article.article_id +
+                          '-0-68-546-0---0,00.html', data={'WSGBRWSR': 'FF',
                                                             'name': self.name,
                                                             'email': self.email,
                                                             'Location': self.location,
@@ -70,7 +72,6 @@ class Article:
         self.article_id = basename(urlparse(article_url).path).split(',')[2]
 
     def GetComments(self):
-
         comments = []
         r = requests.get("https://www.ynet.co.il/Ext/Comp/ArticleLayout/Proc/ShowTalkBacksAjax/v2/0,12990,"+
                          self.article_id +
