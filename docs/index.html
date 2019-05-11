@@ -1,0 +1,113 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html><head><title>Python: package ynet</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head><body bgcolor="#f0f0f8">
+
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="heading">
+<tr bgcolor="#7799ee">
+<td valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial">&nbsp;<br><big><big><strong>ynet</strong></big></big></font></td
+><td align=right valign=bottom
+><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="file:c%3A%5Cusers%5Csl4v%5Cdesktop%5Cprojects%5Cpython-ynet%5Cynet%5C__init__.py">c:\users\sl4v\desktop\projects\python-ynet\ynet\__init__.py</a></font></td></tr></table>
+    <p></p>
+<p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#aa55cc">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Package Contents</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#aa55cc"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><table width="100%" summary="list"><tr><td width="25%" valign=top></td><td width="25%" valign=top></td><td width="25%" valign=top></td><td width="25%" valign=top></td></tr></table></td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ee77aa">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Classes</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#ee77aa"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl>
+<dt><font face="helvetica, arial"><a href="builtins.html#object">builtins.object</a>
+</font></dt><dd>
+<dl>
+<dt><font face="helvetica, arial"><a href="ynet.html#Article">Article</a>
+</font></dt><dt><font face="helvetica, arial"><a href="ynet.html#Comment">Comment</a>
+</font></dt></dl>
+</dd>
+</dl>
+ <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ffc8d8">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="Article">class <strong>Article</strong></a>(<a href="builtins.html#object">builtins.object</a>)</font></td></tr>
+    
+<tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan=2><tt><a href="#Article">Article</a>(article_url)<br>
+&nbsp;<br>
+<br>&nbsp;</tt></td></tr>
+<tr><td>&nbsp;</td>
+<td width="100%">Methods defined here:<br>
+<dl><dt><a name="Article-GetCommentByCommentNum"><strong>GetCommentByCommentNum</strong></a>(self, commentNum)</dt>
+<p>Returns a single <a href='#Comment'>Comment</a> Object that represent a comment with the given comment number.</p></dl>
+
+<dl><dt><a name="Article-GetComments"><strong>GetComments</strong></a>(self)</dt>
+<p>Returns a list of <a href='#Comment'>Comment</a> Objects that represent comments written on the article comment section.</p>
+</dl>
+
+<dl><dt><a name="Article-GetCommentsByWriter"><strong>GetCommentsByWriter</strong></a>(self, writerName)
+</dt><p>Returns a list of <a href='#Comment'>Comment</a> Objects that represent comments written by the given writer.</p></dl>
+
+<dl><dt><a name="Article-HasCommentsByWriter"><strong>HasCommentsByWriter</strong></a>(self, writerName)</dt>
+<p>Returns a bool that represent whether or not the article has comments with the given writer name.</p></dl>
+
+<dl><dt><a name="Article-__init__"><strong>__init__</strong></a>(self, article_url)</dt><dd><tt>Initialize&nbsp;self.&nbsp;&nbsp;See&nbsp;help(type(self))&nbsp;for&nbsp;accurate&nbsp;signature.</tt></dd></dl>
+
+<hr>
+Data descriptors defined here:<br>
+<dl><dt><strong>__dict__</strong></dt>
+<dd><tt>dictionary&nbsp;for&nbsp;instance&nbsp;variables&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+<dl><dt><strong>__weakref__</strong></dt>
+<dd><tt>list&nbsp;of&nbsp;weak&nbsp;references&nbsp;to&nbsp;the&nbsp;object&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+</td></tr></table> <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ffc8d8">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="Comment">class <strong>Comment</strong></a>(<a href="builtins.html#object">builtins.object</a>)</font></td></tr>
+    
+<tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan=2><tt><a href="#Comment">Comment</a>(article_url='',&nbsp;name='',&nbsp;email='',&nbsp;location='',&nbsp;title='',&nbsp;text='',&nbsp;likes=0,&nbsp;commentNum=0,&nbsp;commentDate=None,&nbsp;commentId=0,&nbsp;parentId=0)<br>
+&nbsp;<br>
+<br>&nbsp;</tt></td></tr>
+<tr><td>&nbsp;</td>
+<td width="100%">Methods defined here:<br>
+<dl><dt><a name="Comment-GetParentComment"><strong>GetParentComment</strong></a>(self)</dt>
+<p>Returns a <a href='#Comment'>Comment</a> object of the parent comment.</p></dl>
+
+<dl><dt><a name="Comment-GetReplies"><strong>GetReplies</strong></a>(self)</dt>
+<p>Returns a list of <a href="#Comment">Comment</a> Objects that represent the replies of the comment.</p>
+</dl>
+
+<dl><dt><a name="Comment-Post"><strong>Post</strong></a>(self, useragent='Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.113 Safari/537.36')</dt>
+<p>Posts the Comment</p>
+</dl>
+
+<dl><dt><a name="Comment-Reply"><strong>Reply</strong></a>(self, comment)</dt>
+<p>Sends a reply comment to the comment.</p>
+</dl>
+
+<dl><dt><a name="Comment-__init__"><strong>__init__</strong></a>(self, article_url='', name='', email='', location='', title='', text='', likes=0, commentNum=0, commentDate=None, commentId=0, parentId=0)</dt><dd><tt>Initialize&nbsp;self.&nbsp;&nbsp;See&nbsp;help(type(self))&nbsp;for&nbsp;accurate&nbsp;signature.</tt></dd></dl>
+
+<hr>
+Data descriptors defined here:<br>
+<dl><dt><strong>__dict__</strong></dt>
+<dd><tt>dictionary&nbsp;for&nbsp;instance&nbsp;variables&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+<dl><dt><strong>__weakref__</strong></dt>
+<dd><tt>list&nbsp;of&nbsp;weak&nbsp;references&nbsp;to&nbsp;the&nbsp;object&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+<hr>
+Data and other attributes defined here:<br>
+<dl><dt><strong>hasParentComment</strong> = False</dl>
+
+</td></tr></table></td></tr></table>
+</body></html>
