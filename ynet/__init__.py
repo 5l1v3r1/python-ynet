@@ -39,7 +39,8 @@ class Comment:
                 return comment
 
     def Reply(self, comment):
-        r = requests.post('https://www.ynet.co.il/YediothPortal/Ext/TalkBack/CdaTalkBackTrans/0,2499,' +
+        r = requests.post(self.article.article_uri +
+                         'YediothPortal/Ext/TalkBack/CdaTalkBackTrans/0,2499,' +
                          self.article.article_id +
                          '-0-68-13108-0---' +
                          str(self.commentId) +
@@ -54,7 +55,8 @@ class Comment:
     def Post(self, useragent=
             "Mozilla/5.0 (Windows NT 10.0; Win64; x64) \
 AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.113 Safari/537.36"):
-        r = requests.post('https://www.ynet.co.il/YediothPortal/Ext/TalkBack/CdaTalkBackTrans/0,2499,'
+        r = requests.post(self.article.article_uri +
+                          'YediothPortal/Ext/TalkBack/CdaTalkBackTrans/0,2499,'
                           + self.article.article_id +
                           '-0-68-546-0---0,00.html', data={'WSGBRWSR': 'FF',
                                                             'name': self.name,
@@ -69,11 +71,13 @@ class Article:
 
     def __init__(self, article_url):
         self.article_url = article_url
-        self.article_id = basename(urlparse(article_url).path).split(',')[2]
+        parsed_url = urlparse(article_url)
+        self.article_id = basename(parsed_url.path).split(',')[2]
+        self.article_uri = '{uri.scheme}://{uri.netloc}/'.format(uri=parsed_url)
 
     def GetComments(self):
         comments = []
-        r = requests.get("https://www.ynet.co.il/Ext/Comp/ArticleLayout/Proc/ShowTalkBacksAjax/v2/0,12990,"+
+        r = requests.get(self.article_uri + "Ext/Comp/ArticleLayout/Proc/ShowTalkBacksAjax/v2/0,12990,"+
                          self.article_id +
                          "-desc-68-0-1,00.html",
                          params={'User-Agent':
