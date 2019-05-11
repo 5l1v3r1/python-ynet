@@ -39,7 +39,7 @@ class Comment:
                 return comment
 
     def Reply(self, comment):
-        r = requests.get('https://www.ynet.co.il/YediothPortal/Ext/TalkBack/CdaTalkBackTrans/0,2499,' +
+        r = requests.post('https://www.ynet.co.il/YediothPortal/Ext/TalkBack/CdaTalkBackTrans/0,2499,' +
                          self.article.article_id +
                          '-0-68-13108-0---' +
                          str(self.commentId) +
