@@ -24,6 +24,12 @@ class Comment:
         else:
             self.isReply = True
 
+    def SetToRetrievedCommentFormat(self):
+        self.name = self.name.replace('&quot;', '"').replace('&#39;',"'")
+        self.title = self.title.replace('&quot;', '"').replace('&#39;',"'")
+        self.text = self.text.replace('&quot;', '"').replace('<br/>', '\n').replace('&#39;',"'")
+        return self
+
     def GetReplies(self):
         all_comments = self.article.GetComments()
         replies = []
@@ -66,7 +72,6 @@ AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.113 Safari/537.36"):
                                                             'description': self.text}, headers={'User-Agent':useragent})
         return r.text
 
-
 class Article:
 
     def __init__(self, article_url):
@@ -98,10 +103,9 @@ AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.113 Safari/537.36"}).tex
                                     commentNum=comment_dict['tc'],
                                     likes=comment_dict['ts'],
                                     commentId=comment_dict['id'],
-                                    parentId=comment_dict['parent_id']
-                                    
-                ))
-        return comments     
+                                    parentId=comment_dict['parent_id']).SetToRetrievedCommentFormat()
+                            )
+        return comments
 
     def GetCommentByCommentNum(self, commentNum):
         all_comments = self.GetComments()
