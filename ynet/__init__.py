@@ -7,8 +7,6 @@ import json
 
 class Comment:
 
-    hasParentComment = False
-
     def __init__(self, article_url='', name='', email='', location='', title='', text='', likes=0, commentNum=0, commentDate=None, commentId=0, parentId=0):
         self.article = Article(article_url)
         self.name = name
@@ -21,8 +19,10 @@ class Comment:
         self.commentDate = commentDate
         self.commentId = commentId
         self.parentId = parentId
-        if parentId != 0:
-            self.hasParentComment = True
+        if parentId == 0:
+            self.isReply = False
+        else:
+            self.isReply == True
 
     def GetReplies(self):
         all_comments = self.article.GetComments()
