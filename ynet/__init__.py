@@ -22,7 +22,7 @@ class Comment:
         if parentId == 0:
             self.isReply = False
         else:
-            self.isReply == True
+            self.isReply = True
 
     def GetReplies(self):
         all_comments = self.article.GetComments()
