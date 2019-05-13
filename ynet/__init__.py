@@ -72,6 +72,7 @@ AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.113 Safari/537.36"):
                                                             'description': self.text}, headers={'User-Agent':useragent})
         return r.text
 
+    
 class Article:
 
     def __init__(self, article_url):
