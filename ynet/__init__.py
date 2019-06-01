@@ -144,4 +144,4 @@ class Article:
         return commentsByWriter
 
     def HasCommentsByWriter(self, writerName):
-        return self.GetCommentsByWriter(writerName) is []
+        return not(self.GetCommentsByWriter(writerName) is [])
