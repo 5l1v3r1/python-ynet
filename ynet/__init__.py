@@ -5,6 +5,9 @@ from datetime import date
 import json
 
 
+# TODO: make the function names PEP-8 friendly (make them lower case with underscores seperating the words)
+
+
 class Comment:
 
     def __init__(self, article=None, name='', email='', location='', title='', text='', likes=0, commentNum=0, commentDate=None, commentId=0, parentId=0):
