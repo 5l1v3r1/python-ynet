@@ -125,8 +125,9 @@ class Article:
                     commentNum=comment_dict['tc'],
                     likes=comment_dict['ts'],
                     commentId=comment_dict['id'],
-                    parentId=comment_dict['parent_id']).SetToRetrievedCommentFormat()
-                    )
+                    parentId=comment_dict['parent_id']
+                ).set_to_retrived_comment_format()
+            )
         return comments
 
     def get_comment_by_comment_num(self, commentNum):
