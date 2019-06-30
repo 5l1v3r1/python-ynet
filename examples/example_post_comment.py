@@ -9,4 +9,4 @@ comment = Comment(
     text='python-ynet bot example',
 )
 
-print(comment.Post())
+print(comment.post())

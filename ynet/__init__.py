@@ -5,9 +5,6 @@ from datetime import date
 import json
 
 
-# TODO: make the function names PEP-8 friendly (make them lower case with underscores seperating the words)
-
-
 class Comment:
 
     def __init__(self, article=None, name='', email='', location='', title='', text='', likes=0, commentNum=0, commentDate=None, commentId=0, parentId=0):
@@ -27,27 +24,27 @@ class Comment:
         else:
             self.isReply = True
 
-    def SetToRetrievedCommentFormat(self):
+    def set_to_retrived_comment_format(self):
         self.name = self.name.replace('&quot;', '"').replace('&#39;',"'")
         self.title = self.title.replace('&quot;', '"').replace('&#39;',"'")
         self.text = self.text.replace('&quot;', '"').replace('<br/>', '\n').replace('&#39;',"'")
         return self
 
-    def GetReplies(self):
-        all_comments = self.article.GetComments()
+    def get_replies(self):
+        all_comments = self.article.get_comments()
         replies = []
         for comment in all_comments:
             if comment.parentId == self.commentId:
                 replies.append(comment)
         return replies
 
-    def GetParentComment(self):
-        all_comments = self.article.GetComments()
+    def get_parent_comment(self):
+        all_comments = self.article.get_comments()
         for comment in all_comments:
             if self.parentId == comment.commentId:
                 return comment
 
-    def Reply(self, comment):
+    def reply(self, comment):
         r = requests.post(
             self.article.article_uri
             + 'YediothPortal/Ext/TalkBack/CdaTalkBackTrans/0,2499,'
@@ -66,7 +63,7 @@ class Comment:
         )
         return r.text
     
-    def Post(self, useragent=
+    def post(self, useragent=
             "Mozilla/5.0 (Windows NT 10.0; Win64; x64) \
 AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.113 Safari/537.36"):
         r = requests.post(
@@ -96,11 +93,11 @@ class Article:
         self.article_id = basename(parsed_url.path).split(',')[2]
         self.article_uri = '{uri.scheme}://{uri.netloc}/'.format(uri=parsed_url)
 
-    def GetComments(self):
+    def get_comments(self):
         comments = []
         r = requests.get(
-            self.article_uri +
-            "Ext/Comp/ArticleLayout/Proc/ShowTalkBacksAjax/v2/0,12990,"
+            self.article_uri
+            + "Ext/Comp/ArticleLayout/Proc/ShowTalkBacksAjax/v2/0,12990,"
             + self.article_id
             + "-desc-68-0-1,00.html",
             headers={
@@ -132,19 +129,19 @@ class Article:
                     )
         return comments
 
-    def GetCommentByCommentNum(self, commentNum):
-        all_comments = self.GetComments()
+    def get_comment_by_comment_num(self, commentNum):
+        all_comments = self.get_comments()
         for comment in all_comments:
             if comment.commentNum == commentNum:
                 return comment
 
-    def GetCommentsByWriter(self, writerName):
-        all_comments = self.GetComments()
+    def get_comments_by_writer(self, writerName):
+        all_comments = self.get_comments()
         commentsByWriter = []
         for comment in all_comments:
             if comment.name == writerName:
                 commentsByWriter.append(comment)
         return commentsByWriter
 
-    def HasCommentsByWriter(self, writerName):
-        return not(self.GetCommentsByWriter(writerName) is [])
+    def has_comments_by_writer(self, writerName):
+        return not(self.get_comments_by_writer(writerName) is [])

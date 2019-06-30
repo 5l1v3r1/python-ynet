@@ -4,7 +4,7 @@ from ynet import *
 
 article = Article("https://www.ynet.co.il/articles/0,7340,L-5506634,00.html")
 
-comment = article.GetCommentByCommentNum(3)
+comment = article.get_comment_by_comment_num(3)
 print('Found comment:' + comment.title)
 print('Comment text:' + comment.text)
 print('Sending reply...')
@@ -16,4 +16,4 @@ reply = Comment(
     title='Test reply using python-ynet',
     text='github.com/sl4vkek/python-ynet'
     )
-comment.Reply(reply)
+comment.reply(reply)
