@@ -31,6 +31,7 @@ The following is data for developers so you could better understand how this lib
 | (ynet.co.il)/Ext/Comp/ArticleLayout/Proc/ShowTalkBacksAjaxNC2/0,12979,L-recmm-(article id (no L-))-(comment id)-68-0,00.html 	| Dislike a Comment               	| GET        	|                                                                       	| RN (?)     	| N             	|
 | (ynet.co.il)/Ext/Comp/ArticleLayout/Proc/ShowTalkBacksAjax/v2/0,12990,L-artinfo-(article id (no L-))-68,00.html              	| Retrieve Statistics on Comments 	| GET        	|                                                                       	|            	| Y             	|
 ### Retrieving an Article's ID
+the article ID is usually between the 2nd and 3rd comma. <br/>
 ![alt text](https://i.imgur.com/zLUrbmG.png) <br/>
-Note that sometimes you need to remove "L-" in order to properly send the request
+Note that sometimes you need to remove "L-" in order to properly send the request.
 
