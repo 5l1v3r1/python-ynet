@@ -3,6 +3,7 @@ from os.path import basename
 from urllib.parse import urlparse
 from datetime import date
 import json
+from html import unescape
 
 
 class Comment:
@@ -25,18 +26,16 @@ class Comment:
             self.isReply = True
 
     def set_to_retrived_comment_format(self):
-        self.name = self.name.replace('&quot;', '"').replace('&#39;',"'")
-        self.title = self.title.replace('&quot;', '"').replace('&#39;',"'")
-        self.text = self.text.replace('&quot;', '"').replace('<br/>', '\n').replace('&#39;',"'")
+        self.name = unescape(self.name)
+        self.title = unescape(self.title)
+        self.text = unescape(self.text)
         return self
 
     def get_replies(self):
         all_comments = self.article.get_comments()
-        replies = []
         for comment in all_comments:
             if comment.parentId == self.commentId:
-                replies.append(comment)
-        return replies
+                yield comment
 
     def get_parent_comment(self):
         all_comments = self.article.get_comments()
@@ -87,14 +86,13 @@ AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.113 Safari/537.36"):
 
 class Article:
 
-    def __init__(self, article_url):
+    def __init__(self, article_url: str):
         self.article_url = article_url
         parsed_url = urlparse(article_url)
         self.article_id = basename(parsed_url.path).split(',')[2]
         self.article_uri = '{uri.scheme}://{uri.netloc}/'.format(uri=parsed_url)
 
     def get_comments(self):
-        comments = []
         r = requests.get(
             self.article_uri
             + "Ext/Comp/ArticleLayout/Proc/ShowTalkBacksAjax/v2/0,12990,"
@@ -113,36 +111,31 @@ class Article:
                 month=int(_comment_date[1]),
                 day=int(_comment_date[0])
             )
+            yield Comment(
+                article=self,
+                name=comment_dict['name'],
+                title=comment_dict['title'],
+                text=comment_dict['text'],
+                location=comment_dict['location'],
+                commentDate=comment_date,
+                commentNum=comment_dict['tc'],
+                likes=comment_dict['ts'],
+                commentId=comment_dict['id'],
+                parentId=comment_dict['parent_id']
+            ).set_to_retrived_comment_format()
 
-            comments.append(
-                Comment(
-                    article=self,
-                    name=comment_dict['name'],
-                    title=comment_dict['title'],
-                    text=comment_dict['text'],
-                    location=comment_dict['location'],
-                    commentDate=comment_date,
-                    commentNum=comment_dict['tc'],
-                    likes=comment_dict['ts'],
-                    commentId=comment_dict['id'],
-                    parentId=comment_dict['parent_id']
-                ).set_to_retrived_comment_format()
-            )
-        return comments
-
-    def get_comment_by_comment_num(self, commentNum):
+    def get_comment_by_comment_num(self, commentNum: int):
         all_comments = self.get_comments()
         for comment in all_comments:
             if comment.commentNum == commentNum:
                 return comment
 
-    def get_comments_by_writer(self, writerName):
+    def get_comments_by_writer(self, writerName: str):
         all_comments = self.get_comments()
         commentsByWriter = []
         for comment in all_comments:
             if comment.name == writerName:
-                commentsByWriter.append(comment)
-        return commentsByWriter
+                yield comment
 
-    def has_comments_by_writer(self, writerName):
+    def has_comments_by_writer(self, writerName: str):
         return not(self.get_comments_by_writer(writerName) is [])
